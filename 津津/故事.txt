@@ -1,0 +1,63 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <stack>
+using namespace std;
+#define int long long
+
+
+int n;
+double mp[21][21],a[21],b[21][21];
+signed main()
+{
+    cin>>n;
+    for(int i = 1 ;i<= n+1 ;i++)
+    {
+        for(int j = 1 ;j<= n ;j++)
+        {
+            cin>>mp[i][j];
+        }
+    }
+    for(int i = 1 ;i<= n ;i++)
+    {
+        for(int j = 1 ;j<= n ;j++)
+        {
+            b[i][j] = 2*(mp[i][j]-mp[i+1][j]);
+            a[i]+=mp[i][j]*mp[i][j]-mp[i+1][j]*mp[i+1][j];
+        }
+    }
+    for(int i = 1 ;i<= n ;i++)
+    {
+        for(int j = i ;j<= n ;j++)
+        {
+            if(fabs(b[j][i]>1e-8))
+            {
+                for(int k = 1 ;k<= n ;k++)
+                {
+                    swap(b[i][k],b[j][k]);
+                }
+                swap(a[i],a[j]);
+            }
+        }
+        for(int j = 1 ;j<= n ;j++)
+        {
+            if(i == j)
+            {
+                continue;
+            }
+            double t = b[j][i]/b[i][i];
+            for(int k = i ;k<=n ;k++)
+            {
+                b[j][k]-=b[i][k]*t;
+            }
+            a[j]-=a[i]*t;
+        }
+    }
+    for(int i=1;i<n;i++)
+    {
+        printf("%.3lf ",a[i]/b[i][i]);
+    }
+    printf("%.3lf\n",a[n]/b[n][n]);
+}

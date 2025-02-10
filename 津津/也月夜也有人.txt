@@ -1,0 +1,118 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <stack>
+using namespace std;
+
+
+#define int long long
+int n,m,x,maxx;
+int idx,ans;
+double sml = 1e-7;
+double jj[1170][1100],mp[150][150];
+
+int ji()
+{
+    for(int i = 1 ;i<= n ;i++)
+    {
+        int ma = i;
+        for(int j = i+1 ;j<= n ;j++)
+        {
+            if(abs(jj[j][i])>abs(jj[ma][i]))
+            {
+                ma = j ;
+            }
+        }
+        for(int j = 1 ;j<= n+1 ;j++)
+        {
+            swap(jj[ma][j],jj[i][j]);
+        }
+        if(abs(jj[i][i])<sml)
+        {
+            return 0;
+        }
+        double t = jj[i][i];
+        for(int j = i; j<=n+1 ;j++)
+        {
+            jj[i][j]/=t;
+        }
+        for(int j = 1 ;j<= n ;j++)
+        {
+            if(i!=j )
+            {
+                double r = jj[j][i]/jj[i][i];
+                for(int k = i ;k<= n+1;k++)
+                {
+                    jj[j][k]-=jj[i][k]*r;
+                }
+            }
+        }
+
+    }
+    for(int i=n; i>=1; i--) 
+    {
+        for(int j=i+1; j<=n; j++) 
+        {
+            jj[i][n+1]-=jj[j][n+1]*jj[i][j];
+        }
+        if(jj[i][n+1]<sml||((int)jj[i][n+1])<jj[i][n+1]) return 0; 
+    } 
+    int sum;
+    maxx=-1;
+    for(int i=1; i<=n; i++) 
+    {
+        if((int)jj[i][n+1]>maxx) maxx=jj[i][n+1],sum=i;
+    } 
+    int num=0;
+    for(int i=1; i<=n; i++)
+    {
+        if((int)jj[i][n+1]==maxx) num++; 
+    }
+    if(num>1) return 0;
+    return sum;
+}
+signed main()
+{
+    cin>>n;
+    for(int i = 1 ;i<= n+1 ;i++)
+    {
+        cin>>m;
+        for(int j = 1 ;j<= m ;j++)
+        {
+            cin>>x;
+            mp[i][x]++;
+        }
+        cin>>x;
+        mp[i][n+1] = x*1.0;
+    }
+    for(int i = 1 ;i<= n+1 ;i++)
+    {
+        int cnt = 0;
+        for(int j = 1 ;j<= n+1 ;j++)
+        {
+            if(i == j)continue;
+            cnt++;
+            for(int k = 1 ;k<=n+1 ;k++)
+            {
+                jj[cnt][k] = mp[j][k];
+            }
+        }
+        int p = ji();
+        if(p == 0)continue;
+        else
+        {
+            idx++;
+            ans = p;
+        }
+    }
+    if(idx>1||idx == 0)
+    {
+        cout<<"illegal";
+    }
+    else
+    {
+        cout<<ans;
+    }
+}

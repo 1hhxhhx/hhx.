@@ -1,0 +1,51 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <stack>
+using namespace std;
+
+
+#define int long long
+int p;
+int n;
+int qmi(int a,int k)
+{
+    int sum = 1;
+    while(k)
+    {
+        if(k&1)
+        {
+            sum =(long long)sum*a%p;
+        }
+        a = (long long)a*a%p;
+        k>>=1;
+    }
+    return sum;
+}
+int c(int a,int b)
+{
+    int sum = 1 ;
+    for(int i = 1 ,j=a;i<=b ;i++,j--)
+    {
+        sum = sum*j%p;
+        sum = sum*qmi(i,p-2)%p;
+    }
+    return sum;
+}
+int lucas(int a,int b)
+{
+    if(a<p&&b<p)
+        return c(a,b);
+    return c(a%p,b%p)*lucas(a/p,b/p)%p;
+}
+signed main() {
+    cin>>n;
+    while(n--)
+    {
+        int a,b;
+        cin>>a>>b>>p;
+        cout<<lucas(a,b)<<endl;
+    }
+}
