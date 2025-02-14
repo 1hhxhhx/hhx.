@@ -1,0 +1,73 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <stack>
+using namespace std;
+#define int long long
+int t,p,n,l,r;
+char s[22];
+
+int ji(int x)
+{
+    if(x%4==1)
+    {
+        return 1;
+    }
+    else if(x%4==2)
+    {
+        return x^1;
+    }
+    else if(x%4==3)
+    {
+        return 0;
+    }
+    else return x;
+}
+int ni(int x,int y)
+{
+    int su = 0,ll= 0,rr = 0,o;
+    while(ll<=x)
+    {
+        o = y/2;
+        rr = ll+o;
+        if(rr>=x)
+        {
+            su = su^ji(x-ll);
+            break;
+        }
+        su^=ji(rr-ll);
+        ll = rr+1;
+        y = p-ll;
+    }
+    return su;
+}
+signed main()
+{
+    cin>>t;
+    for(int i = 1 ;i<= t ;i++)
+    {
+        cin>>s;
+        if(s[0] == 'c')
+        {
+            cin>>p;
+        }
+        else
+        {
+            cin>>n;
+            int sum = 0;
+            for(int i = 1 ;i<= n ;i++)
+            {
+                cin>>l>>r;
+                sum = sum^ni(r,p);
+                sum= sum^ni(l-1,p);
+            }
+            if(sum)
+            {
+                cout<<1;
+            }
+            else cout<<0;
+        }
+    }
+}

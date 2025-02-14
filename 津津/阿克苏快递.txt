@@ -1,0 +1,21 @@
+#include<cstdio>
+int k,n[500002];
+int main()
+{
+    scanf("%d",&k);int x=0;
+    for(int i=1;i<=k;i++)
+    {
+        scanf("%d",&n[i]);
+        x^=n[i];
+    }
+    if(!x){puts("lose");return 0;}
+    for(int i=1;i<=k;i++)
+    {
+        if((n[i]^x)>=n[i]) continue;
+        printf("%d %d\n",(n[i]-(n[i]^x)),i);
+        n[i]=n[i]^x;
+        break;
+    }
+    for(int i=1;i<=k;i++)
+    printf("%d ",n[i]);
+}

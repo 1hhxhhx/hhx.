@@ -1,0 +1,52 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <stack>
+using namespace std;
+
+int t,n,x,sum;
+bool v[1001011];
+int a[10010101];
+int main()
+{
+    cin>>t;
+    while(t--)
+    {
+        cin>>n;
+        while(n--)
+        {
+            cin>>x;
+            memset(v,false, sizeof v);
+            int m = 21-x,idx = 0,s = 0;
+            while(x--)
+            {
+                int k;
+                cin>>k;
+                v[k] = true;
+            }
+            for(int i = 1 ;i<=20 ;i++)
+            {
+                if(!v[i])
+                {
+                    if((--m)&1)
+                    {
+                        s^=idx;
+                        idx=  0;
+                    }
+                    else
+                    {
+                        idx++;
+                    }
+                }
+            }
+            sum^=s;
+        }
+        if(sum)
+        {
+            cout<<"YES"<<endl;
+        }
+        else cout<<"NO"<<endl;
+    }
+}

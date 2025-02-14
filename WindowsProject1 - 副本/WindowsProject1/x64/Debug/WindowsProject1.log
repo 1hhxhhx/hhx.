@@ -1,0 +1,13 @@
+﻿  cDefense.cpp
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(453,14): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(457,16): warning C4244: “-=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(461,16): warning C4244: “+=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(466,16): warning C4244: “-=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(470,16): warning C4244: “+=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(506,12): warning C4101: “rPt”: 未引用的局部变量
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(718,14): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(722,16): warning C4244: “-=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(726,16): warning C4244: “+=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(731,16): warning C4244: “-=”: 从“float”转换到“LONG”，可能丢失数据
+C:\Users\22184\source\repos\WindowsProject1 - 副本\WindowsProject1\cDefense.cpp(735,16): warning C4244: “+=”: 从“float”转换到“LONG”，可能丢失数据
+  WindowsProject1.vcxproj -> C:\Users\22184\source\repos\WindowsProject1 - 副本\x64\Debug\WindowsProject1.exe

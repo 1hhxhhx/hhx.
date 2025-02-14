@@ -1,0 +1,19 @@
+int T, m, n;
+bool solve(int n, int m)
+{
+    if (!m)return false;
+    if (n/m == 1)return !solve(m, n%m);
+    else return true;
+}
+int main()
+{
+    scanf("%d", &T);
+    for (int xx = 1; xx <= T; xx++)
+    {
+        scanf("%d%d", &n, &m);
+        if (solve(max(n, m), min(n, m)))
+            printf("Stan wins\n");
+        else
+            printf("Ollie wins\n");
+    }
+}

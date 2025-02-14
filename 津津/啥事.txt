@@ -1,0 +1,53 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <stack>
+using namespace std;
+#define int long long
+
+int n,m,wa;
+int w[100101],v[1100101],f[1010010],ans[1001010];
+
+int find(int x)
+{
+    if(x!=f[x])
+    {
+        f[x] = find(f[x]);
+    }
+    return f[x];
+}
+signed main()
+{
+    cin>>n>>m>>wa;
+    for(int i = 1 ;i<=n ;i++)
+    {
+        cin>>w[i]>>v[i];
+        f[i] = i;
+    }
+    int a,b;
+    for(int i = 1 ;i<= m ;i++)
+    {
+        cin>>a>>b;
+        int x = find(a),y = find(b);
+        if(find(a) == find(b))
+        {
+            continue;
+        }
+        f[find(b)] = find(a);
+        v[x] +=v[y];
+        w[x]+=w[y];
+    }
+    for(int i = 1 ;i<=n ;i++)
+    {
+        if(f[i] == i)
+        {
+            for(int j = wa ;j>=w[i];j--)
+            {
+                ans[j] = max(ans[j],ans[j-w[i]]+v[i]);
+            }
+        }
+    }
+    cout<<ans[wa];
+}
