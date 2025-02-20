@@ -79,19 +79,19 @@ void cDefense::DrawAll()
 	HDC dcMem = CreateCompatibleDC(hDc);
 	HBITMAP hBitmep = CreateCompatibleBitmap(hDc, 700, 600);
 	SelectObject(dcMem, hBitmep);
-	//Òª°ÑËùÓÐµÄÍ¼ÐÎ»æÖÆµ½dcMemÉÏ
+	//è¦æŠŠæ‰€æœ‰çš„å›¾å½¢ç»˜åˆ¶åˆ°dcMemä¸Š
 
 	DrawMap(dcMem);
-	DrawItem(dcMem);//½¨ÖþÎïµÄÍ¼±ê£¬½¨ÖþÎïÈ«·ÅÕâ¸öº¯ÊýÀï»æÖÆ
+	DrawItem(dcMem);//å»ºç­‘ç‰©çš„å›¾æ ‡ï¼Œå»ºç­‘ç‰©å…¨æ”¾è¿™ä¸ªå‡½æ•°é‡Œç»˜åˆ¶
 	DrawMonster(dcMem);
 	DrawRadish(dcMem);
 
 	wchar_t szText[100] = { 0 };
-	wsprintf(szText, L"           £º%d", m_iMoney);
+	wsprintf(szText, L"           ï¼š%d", m_iMoney);
 	SetBkMode(dcMem, 0);
 	SetTextColor(dcMem, RGB(255, 255, 50));
 	TextOut(dcMem, 120, 20, szText, lstrlen(szText));
-	//°ÑdcMem»æÖÆµ½hDcÉÏ
+	//æŠŠdcMemç»˜åˆ¶åˆ°hDcä¸Š
 	BitBlt(hDc, 0, 0, 700, 600, dcMem, 0, 0, SRCCOPY);
 	ReleaseDC(m_hWnd, hDc);
 	DeleteObject(dcMem);
@@ -110,18 +110,18 @@ void cDefense::DrawMap(HDC dcMem)
 	HBITMAP hBitmap = (HBITMAP)LoadImage(NULL, L"images\\maps\\ma.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	SelectObject(dcTemp, hBitmap);
 
-	// ´´½¨ÑÚÂëÎ»Í¼µÄÉè±¸ÉÏÏÂÎÄ
+	// åˆ›å»ºæŽ©ç ä½å›¾çš„è®¾å¤‡ä¸Šä¸‹æ–‡
 	HDC hdcMask = CreateCompatibleDC(NULL);
-	// ÑÚÂëÎ»Í¼
+	// æŽ©ç ä½å›¾
 	HBITMAP hBitmapMask = CreateBitmap(700, 600, 1, 1, NULL);
 	SelectObject(hdcMask, hBitmapMask);
-	// ÉèÖÃÑÚÂëÎ»Í¼£¬½«µÚ2ÕÅÍ¼Æ¬µÄ´¿°×ÏñËØÉèÎªºÚÉ«£¬ÆäËûÉèÎª°×É«
+	// è®¾ç½®æŽ©ç ä½å›¾ï¼Œå°†ç¬¬2å¼ å›¾ç‰‡çš„çº¯ç™½åƒç´ è®¾ä¸ºé»‘è‰²ï¼Œå…¶ä»–è®¾ä¸ºç™½è‰²
 	SetBkColor(dcTemp, RGB(255, 255, 255));
 	SetTextColor(dcTemp, RGB(0, 0, 0));
 	BitBlt(hdcMask, 0, 0, 700, 600, dcTemp, 0, 0, SRCCOPY);
-	// Ê¹ÓÃÑÚÂëÎ»Í¼½«µÚ1ÕÅÍ¼Æ¬¸²¸ÇµÚ2ÕÅÍ¼Æ¬µÄ´¿°×²¿·Ö
+	// ä½¿ç”¨æŽ©ç ä½å›¾å°†ç¬¬1å¼ å›¾ç‰‡è¦†ç›–ç¬¬2å¼ å›¾ç‰‡çš„çº¯ç™½éƒ¨åˆ†
 	MaskBlt(dcMem, 0, 0, 700, 600, tt, 0, 0, hBitmapMask, 0, 0, MAKEROP4(SRCCOPY, SRCAND));
-	// »æÖÆµÚ2ÕÅÍ¼Æ¬µÄ·Ç´¿°×²¿·Ö
+	// ç»˜åˆ¶ç¬¬2å¼ å›¾ç‰‡çš„éžçº¯ç™½éƒ¨åˆ†
 	BitBlt(dcMem, 0, 0,700, 600, dcTemp, 0, 0, SRCINVERT);
 	BitBlt(dcMem, 0, 0, 700, 600, hdcMask, 0, 0, SRCAND);
 	BitBlt(dcMem, 0, 0, 700,600, dcTemp, 0, 0, SRCINVERT);
@@ -207,7 +207,7 @@ void cDefense::InitBase()
 void cDefense::DrawItem(HDC dcMem)
 {
 	BulletMove();
-	//»æÖÆÍ¼±ê
+	//ç»˜åˆ¶å›¾æ ‡
 	HDC dcTemp;
 	dcTemp = CreateCompatibleDC(NULL);
 	HBITMAP bitmap1 = (HBITMAP)LoadImage(NULL, L"images\\Fortress\\small1.bmp", IMAGE_BITMAP,
@@ -226,7 +226,7 @@ void cDefense::DrawItem(HDC dcMem)
 		m_rectBuilding[1].right - m_rectBuilding[1].left,
 		m_rectBuilding[1].bottom - m_rectBuilding[1].top, RGB(34, 177, 76));
 
-	//»æÖÆ½¨ÖþÎï
+	//ç»˜åˆ¶å»ºç­‘ç‰©
 	for (BuildList::iterator it = m_buildList.begin();it != m_buildList.end();it++)
 	{
 		wchar_t szFileName[100] = { 0 };
@@ -248,14 +248,14 @@ void cDefense::DrawItem(HDC dcMem)
 		DeleteObject(bitmapBuilding);
 	}
 	DrawBullet(dcMem);
-	//»æÖÆÊó±êÉÏµÄ½¨ÖþÎï
+	//ç»˜åˆ¶é¼ æ ‡ä¸Šçš„å»ºç­‘ç‰©
 	if (m_mouseItemIndex >= 0 && m_mouseItemIndex <2)
 	{
 		wchar_t szFileName[100];
 		wsprintf(szFileName, L"images\\Fortress\\%d_16.bmp", m_mouseItemIndex + 1);
 		HBITMAP bitmapMouse = (HBITMAP)LoadImage(NULL, szFileName,
 			IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-		//¸ù¾ÝÊó±êÎ»ÖÃÀ´»æÖÆ
+		//æ ¹æ®é¼ æ ‡ä½ç½®æ¥ç»˜åˆ¶
 		tagPOINT ptCursor;
 		GetCursorPos(&ptCursor);
 		ScreenToClient(m_hWnd, &ptCursor);
@@ -281,7 +281,7 @@ void cDefense::OnLButtonUp(LPARAM lParam)
 	ptCur.x = GET_X_LPARAM(lParam);
 	ptCur.y = GET_Y_LPARAM(lParam);
 
-	//ÅÐ¶Ïµã»÷ÔÚÄÄ
+	//åˆ¤æ–­ç‚¹å‡»åœ¨å“ª
 	int baseIndex = -1;
 	if (IsInRect(ptCur, m_rectBuilding[0]))
 	{
@@ -293,7 +293,7 @@ void cDefense::OnLButtonUp(LPARAM lParam)
 	}
 	else if ((baseIndex = GetBaseIndex(ptCur)) != -1)
 	{
-		//ÔÚµØ»ùÉÏµã
+		//åœ¨åœ°åŸºä¸Šç‚¹
 		AddBuilding(baseIndex);
 	}
 
@@ -334,7 +334,7 @@ int cDefense::GetBaseIndex(tagPOINT pt)
 
 void cDefense::AddBuilding(int baseIndex)
 {
-	//Ôö¼Ó½¨ÖþÎï
+	//å¢žåŠ å»ºç­‘ç‰©
 	if (m_mouseItemIndex < 0 || m_mouseItemIndex >=2)
 	{
 		return;
@@ -349,7 +349,7 @@ void cDefense::AddBuilding(int baseIndex)
 	}
 
 	stBuildingInfo stInfo;
-	//ÏÈÒªÕÒµ½µØ»ùµÄ×ø±ê
+	//å…ˆè¦æ‰¾åˆ°åœ°åŸºçš„åæ ‡
 
 	int i = 0;
 	tagPOINT basePt;
@@ -365,7 +365,7 @@ void cDefense::AddBuilding(int baseIndex)
 		i++;
 	}
 
-	//¸ù¾ÝµØ»ùµÄ×ø±êËã³ö½¨ÖþÎïµÄ×ø±ê
+	//æ ¹æ®åœ°åŸºçš„åæ ‡ç®—å‡ºå»ºç­‘ç‰©çš„åæ ‡
 	if (m_mouseItemIndex == 0)
 	{
 		stInfo.pt.x = basePt.x- 43 ;
@@ -387,7 +387,7 @@ void cDefense::AddBuilding(int baseIndex)
 
 void cDefense::AddMonster()
 {
-	//¹ÖÎïµÄ³õÊ¼×ø±êµã¶¼Ò»ÑùµÄ
+	//æ€ªç‰©çš„åˆå§‹åæ ‡ç‚¹éƒ½ä¸€æ ·çš„
 	stMonsterInfo monsterInfo;
 	monsterInfo.pt.x = -10;
 	monsterInfo.pt.y = 160;
@@ -413,7 +413,7 @@ void cDefense::AddMonster()
 
 void cDefense::MonsterMove()
 {
-	//¹ÖÎï´Óµ±Ç°µãµ½Ä¿±êµãÒÆ¶¯
+	//æ€ªç‰©ä»Žå½“å‰ç‚¹åˆ°ç›®æ ‡ç‚¹ç§»åŠ¨
 	for (MonsterList::iterator it = m_monsterList.begin();it != m_monsterList.end();it++)
 	{
 		tagPOINT ptDes;
@@ -446,9 +446,7 @@ void cDefense::MonsterMove()
 			}
 			continue;
 		}
-		//lenY/lenX = abs(ptDes.y-it->pt.y)/abs(ptDes.x-it->pt.x)
-		//lenY*lenY + lenX*lenX = speed*speed
-		//lenY = lenX*temp
+		
 		float temp = (float)abs(ptDes.y - it->pt.y) / abs(ptDes.x - it->pt.x);
 		float lenX = sqrt((float)it->speed * it->speed / (1 + temp * temp));
 		float lenY = lenX * temp;
@@ -578,15 +576,15 @@ void cDefense::DrawRadish(HDC dcMem)
 
 void cDefense::DrawMonster(HDC dcMem)
 {
-	//Òª¸ù¾Ý·½ÏòÀ´»æÖÆ
+	//è¦æ ¹æ®æ–¹å‘æ¥ç»˜åˆ¶
 	HDC dcTemp = CreateCompatibleDC(NULL);
 	for (MonsterList::reverse_iterator it = m_monsterList.rbegin();it != m_monsterList.rend();it++)
 	{
-		//È·¶¨·½Ïò
+		//ç¡®å®šæ–¹å‘
 		wchar_t szFileName[100];
 		if (it->curDesPtIndex %2!=0)
 		{
-			//ÏòÏÂ
+			//å‘ä¸‹
 			wsprintf(szFileName, L"images\\monster%d\\down_%d.bmp", it->type + 1, it->curPicIndex);
 			it->curPicIndex++;
 			if (it->type == Monster_Type1 && it->curPicIndex > 12)
@@ -600,7 +598,7 @@ void cDefense::DrawMonster(HDC dcMem)
 		}
 		else
 		{
-			//ÏòÓÒ
+			//å‘å³
 			wsprintf(szFileName, L"images\\monster%d\\right_%d.bmp",it->type + 1, it->curPicIndex);
 			it->curPicIndex++;
 			if (it->type == Monster_Type1 && it->curPicIndex > 16)
@@ -628,10 +626,10 @@ void cDefense::BuildingAttack()
 	for (BuildList::iterator it = m_buildList.begin();it != m_buildList.end();it++)
 	{
 		stMonsterInfo stMonster;
-		//»ñµÃÉä³Ì·¶Î§ÄÚÀëµÃ×î½üµÄ¹Ö¹¥»÷
+		//èŽ·å¾—å°„ç¨‹èŒƒå›´å†…ç¦»å¾—æœ€è¿‘çš„æ€ªæ”»å‡»
 		if (GetNearestMonster(*it, stMonster))
 		{
-			//´´½¨×Óµ¯
+			//åˆ›å»ºå­å¼¹
 			stBulletInfo bulletInfo;
 			bulletInfo.monsterId = stMonster.id;
 			bulletInfo.type = it->type;
@@ -703,7 +701,7 @@ void cDefense::BulletMove()
 			}
 			if (Distance(ptDes, it->pt) <= 12)
 			{
-				//¹¥»÷µ½ÁË
+				//æ”»å‡»åˆ°äº†
 				AttackMonster(it->monsterId, it->type);
 				it = m_bulletList.erase(it);
 				continue;
@@ -711,9 +709,7 @@ void cDefense::BulletMove()
 			it++;
 			continue;
 		}
-		//lenY/lenX = abs(ptDes.y-it->pt.y)/abs(ptDes.x-it->pt.x)
-		//lenY*lenY + lenX*lenX = speed*speed
-		//lenY = lenX*temp
+	
 		float temp = (float)abs(ptDes.y - it->pt.y) / abs(ptDes.x - it->pt.x);
 		float lenX = sqrt((float)bulletSpeed * bulletSpeed / (1 + temp * temp));
 		float lenY = lenX * temp;
@@ -736,7 +732,7 @@ void cDefense::BulletMove()
 		}
 		if (Distance(ptDes, it->pt) <= 12)
 		{
-			//¹¥»÷µ½ÁË
+			//æ”»å‡»åˆ°äº†
 			AttackMonster(it->monsterId, it->type);
 			it = m_bulletList.erase(it);
 			continue;
